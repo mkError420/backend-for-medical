@@ -30,7 +30,8 @@ import {
   Download,
   Eye,
   Edit,
-  Trash2
+  Trash2,
+  Briefcase
 } from 'lucide-react'
 
 interface User {
@@ -213,6 +214,7 @@ const AdminDashboard: React.FC = () => {
           {menuItems.map((item) => (
             <button
               key={item.path}
+              onClick={() => router.push(item.path)}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 ${
                 item.active 
                   ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25' 
@@ -406,29 +408,168 @@ const AdminDashboard: React.FC = () => {
               </div>
             </div>
 
-            {/* Upcoming Events */}
+            {/* Admissions Section */}
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-lg font-semibold text-gray-900">Upcoming Events</h2>
-                <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">View Calendar</button>
+                <h2 className="text-lg font-semibold text-gray-900">Admissions Overview</h2>
+                <button 
+                  onClick={() => router.push('/admin-dashboard/admissions')}
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  View All Applications
+                </button>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {upcomingEvents.map((event) => (
-                  <div key={event.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className={`px-2 py-1 text-xs font-medium rounded-lg ${
-                        event.type === 'conference' ? 'bg-blue-100 text-blue-700' :
-                        event.type === 'meeting' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'
-                      }`}>
-                        {event.type}
-                      </span>
-                      <Calendar className="h-4 w-4 text-gray-400" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* MBBS Admissions */}
+                <div className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <GraduationCap className="h-4 w-4 text-blue-600" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">MBBS</span>
                     </div>
-                    <h3 className="font-medium text-gray-900 mb-1">{event.title}</h3>
-                    <p className="text-sm text-gray-600">{event.date}</p>
+                    <span className="px-2 py-1 text-xs font-medium rounded-lg bg-green-100 text-green-700">
+                      Active
+                    </span>
                   </div>
-                ))}
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Total Applications</span>
+                      <span className="text-sm font-bold text-gray-900">156</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Approved</span>
+                      <span className="text-sm font-bold text-green-600">89</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Pending</span>
+                      <span className="text-sm font-bold text-yellow-600">45</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Rejected</span>
+                      <span className="text-sm font-bold text-red-600">22</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* BDS Admissions */}
+                <div className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                        <UserPlus className="h-4 w-4 text-green-600" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">BDS</span>
+                    </div>
+                    <span className="px-2 py-1 text-xs font-medium rounded-lg bg-green-100 text-green-700">
+                      Active
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Total Applications</span>
+                      <span className="text-sm font-bold text-gray-900">89</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Approved</span>
+                      <span className="text-sm font-bold text-green-600">56</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Pending</span>
+                      <span className="text-sm font-bold text-yellow-600">28</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Rejected</span>
+                      <span className="text-sm font-bold text-red-600">5</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Nursing Admissions */}
+                <div className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <Users className="h-4 w-4 text-purple-600" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Nursing</span>
+                    </div>
+                    <span className="px-2 py-1 text-xs font-medium rounded-lg bg-green-100 text-green-700">
+                      Active
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Total Applications</span>
+                      <span className="text-sm font-bold text-gray-900">124</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Approved</span>
+                      <span className="text-sm font-bold text-green-600">78</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Pending</span>
+                      <span className="text-sm font-bold text-yellow-600">34</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Rejected</span>
+                      <span className="text-sm font-bold text-red-600">12</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pharmacy Admissions */}
+                <div className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <Briefcase className="h-4 w-4 text-orange-600" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-700">Pharmacy</span>
+                    </div>
+                    <span className="px-2 py-1 text-xs font-medium rounded-lg bg-yellow-100 text-yellow-700">
+                      Closing Soon
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Total Applications</span>
+                      <span className="text-sm font-bold text-gray-900">67</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Approved</span>
+                      <span className="text-sm font-bold text-green-600">34</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Pending</span>
+                      <span className="text-sm font-bold text-yellow-600">25</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Rejected</span>
+                      <span className="text-sm font-bold text-red-600">8</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Admission Statistics */}
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-600 mb-1">436</div>
+                    <div className="text-sm text-gray-600">Total Applications</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-600 mb-1">257</div>
+                    <div className="text-sm text-gray-600">Approved Applications</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600 mb-1">59%</div>
+                    <div className="text-sm text-gray-600">Approval Rate</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

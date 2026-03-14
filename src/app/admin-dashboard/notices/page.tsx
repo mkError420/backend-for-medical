@@ -23,7 +23,8 @@ import {
   TrendingUp,
   Download,
   MoreHorizontal,
-  Bell
+  Bell,
+  Menu
 } from 'lucide-react'
 
 interface Notice {
@@ -299,6 +300,7 @@ const NoticesPage: React.FC = () => {
           {menuItems.map((item) => (
             <button
               key={item.path}
+              onClick={() => router.push(item.path)}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 ${
                 item.active 
                   ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25' 
@@ -682,7 +684,5 @@ const NoticesPage: React.FC = () => {
     </div>
   );
 };
-
-const Menu = X; // Temporary fix for import
 
 export default NoticesPage;
